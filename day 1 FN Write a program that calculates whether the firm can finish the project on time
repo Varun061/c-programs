@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+int main() {
+int totalDays, trainingDays;
+float hoursNeeded, totalHoursAvailable, hoursPerDay, overtimePerDay;
+// Input the total number of days, training days, and hours needed for the project
+printf("Enter the total number of days: ");
+scanf("%d", &totalDays);
+printf("Enter the number of training days: ");
+scanf("%d", &trainingDays);
+printf("Enter the total hours needed for the project: ");
+scanf("%f", &hoursNeeded);
+// Calculate the total available hours for the project
+totalHoursAvailable = (totalDays - 0.1 * totalDays - trainingDays) * 8;
+// Calculate the total overtime hours needed
+overtimePerDay = 2;
+hoursPerDay = 8 + overtimePerDay;
+// Calculate the total overtime hours for the project
+float totalOvertimeHours = totalDays * overtimePerDay;
+// Calculate the total available hours with overtime
+totalHoursAvailable += totalOvertimeHours;
+// Calculate the hours left or needed
+float hoursLeftOrNeeded = hoursNeeded - totalHoursAvailable;
+// Check if the project can be finished on time
+if (hoursLeftOrNeeded <= 0) {
+printf("The project can be finished on time. Hours left: %.0f\n", fabs(hoursLeftOrNeeded));
+} else {
+printf("The project cannot be finished on time. Hours needed: %.0f\n", 
+ceil(hoursLeftOrNeeded));
+}
+return 0;
+}
