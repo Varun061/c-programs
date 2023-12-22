@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+
+void justifySentence(char sentence[], int screenLength) {
+    int length = strlen(sentence);
+    int spacesToAdd = screenLength - length;
+
+    if (spacesToAdd <= 0) {
+        // No justification needed
+        printf("%s\n", sentence);
+        return;
+    }
+
+    int spacesBetweenWords = spacesToAdd / (length - 1);
+    int extraSpaces = spacesToAdd % (length - 1);
+
+    char *token = strtok(sentence, " ");
+    printf("%s", token);
+
+    while ((token = strtok(NULL, " ")) != NULL) {
+        for (int i = 0; i < spacesBetweenWords; i++) {
+            printf("*");
+        }
+
+        if (extraSpaces > 0) {
+            printf("*");
+            extraSpaces--;
+        }
+
+        printf("%s", token);
+    }
+
+    printf("\n");
+}
+
+int main() {
+    char sentence[] = " Welcome to Zoho Corporation.";
+    int screenLength = 34;
+
+    printf("Original sentence:\n%s\n\n", sentence);
+    printf("Justified sentence:\n");
+    justifySentence(sentence, screenLength);
+
+    return 0;
+}
