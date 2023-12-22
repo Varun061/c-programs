@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <ctype.h>
+
+void generateOutput(char *input) {
+    char current_char = '\0';
+    int repeat_count = 0;
+
+    // Iterate through each character in the input string
+    for (int i = 0; input[i] != '\0'; ++i) {
+        if (isalpha(input[i])) {
+            // If the character is a letter
+            current_char = input[i];
+        } else if (isdigit(input[i])) {
+            // If the character is a digit, update the repeat count
+            repeat_count = repeat_count * 10 + (input[i] - '0');
+        } else {
+            // If the character is neither a letter nor a digit, reset the repeat count
+            repeat_count = 0;
+        }
+
+        // Generate and print repeated characters
+        while (repeat_count > 0) {
+            printf("%c", current_char);
+            repeat_count--;
+        }
+    }
+}
+
+int main() {
+    char input[100];
+
+    // Get input from the user
+    printf("Enter the input string: ");
+    scanf("%s", input);
+
+    // Generate and display the output
+    printf("Output: ");
+    generateOutput(input);
+
+    return 0;
+}
