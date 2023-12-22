@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+void printDuplicates(int arr[], int n) {
+    if (n <= 1) {
+        printf("No duplicates found.\n");
+        return;
+    }
+
+    int currentElement = arr[0];
+    int frequency = 1;
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] == currentElement) {
+            frequency++;
+        } else {
+            if (frequency > 1) {
+                printf("%d->%d, ", currentElement, frequency);
+            }
+            currentElement = arr[i];
+            frequency = 1;
+        }
+    }
+
+    // Check for the last element
+    if (frequency > 1) {
+        printf("%d->%d", currentElement, frequency);
+    }
+}
+
+int main() {
+    int arr[] = {1, 1, 1, 2, 4, 4, 4, 4, 5, 6, 9, 9};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Sample Output:\n");
+    printDuplicates(arr, n);
+    
+    return 0;
+}
