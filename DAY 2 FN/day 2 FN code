@@ -1,1 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    char shapeCode;
+    printf("Enter the shape code ('S' for square, 'C' for circle): ");
+    scanf(" %c", &shapeCode); // Note the space before %c to consume the newline character from the previous input
+
+    if (shapeCode == 'S' || shapeCode == 's') {
+        // Square
+        double sideLength;
+        printf("Enter the side length of the square: ");
+        scanf("%lf", &sideLength);
+
+        double areaSquare = sideLength * sideLength;
+        printf("Area of the square: %.2lf\n", areaSquare);
+    } else if (shapeCode == 'C' || shapeCode == 'c') {
+        // Circle
+        double radius;
+        printf("Enter the radius of the circle: ");
+        scanf("%lf", &radius);
+
+        double areaCircle = M_PI * radius * radius; // M_PI is a constant for pi from math.h
+        printf("Area of the circle: %.2lf\n", areaCircle);
+    } else {
+        printf("Invalid shape code. Please enter 'S' for square or 'C' for circle.\n");
+    }
+
+    return 0;
+}
+
 
