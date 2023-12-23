@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Function to recursively generate letter combinations
+void generateCombinations(char* digits, char* current, char** letterCombinations, int index, int* count, char* mapping[]) {
+    // If we have processed all digits, add the current combination to the result
+    if (digits[index] == '\0') {
+        current[index] = '\0';
+        letterCombinations[*count] = malloc(strlen(current) + 1);
+        strcpy(letterCombinations[*count], current);
+        (*count)++;
+        return;
+    }
+
+    // Get the letters corresponding to the current digit
+    char* letters = mapping[digits[index] - '2'];
+
+    // Iterate over each letter and recurse
+    for (int i = 0; i < strlen(letters); i++) {
+        current[index] = letters[i];
+        generateCombinations(digits, current, letterCombinations, index + 1, count, mapping);
+    }
+}
+
+// Function to initialize and call the recursive function
+char** letterCombinations(char* digits, int* returnSize) {
+    // Define the mapping of digits to letters
+    char* mapping[] = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    // Calculate the total number of combinations
+    int totalCombinations = 1;
+    for (int i = 0; digits[i] != '\0'; i++) {
+        int digit = digits[i] - '2';
+        totalCombinations *= strlen(mapping[digit]);
+    }
+
+    // Allocate memory for the result array
+    char** result = (char**)malloc(totalCombinations * sizeof(char*));
+
+    // Initialize variables to be passed to the recursive function
+    int count = 0;
+    char current[100]; // Assuming a maximum length of 100 for each combination
+
+    // Call the recursive function
+    generateCombinations(digits, current, result, 0, &count, mapping);
+
+    // Update the return size
+    *returnSize = count;
+
+    return result;
+}
+
+// Main function for testing
+int main() {
+    char digits[] = "23"; // Example input
+    int returnSize;
+
+    char** result = letterCombinations(digits, &returnSize);
+
+    // Print the result
+    for (int i = 0; i < returnSize; i++) {
+        printf("%s ", result[i]);
+        free(result[i]);
+    }
+    free(result);
+
+    return 0;
+}
