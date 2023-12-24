@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int isPairSum(int arr[], int n, int x) {
+    int hash[100000] = {0}; // Assuming a reasonable range for array elements
+    
+    for (int i = 0; i < n; i++) {
+        int complement = x - arr[i];
+        
+        // Check if the complement is present in the hash table
+        if (hash[complement] == 1) {
+            return 1; // Pair found
+        }
+        
+        // Add the current element to the hash table
+        hash[arr[i]] = 1;
+    }
+    
+    return 0; // No pair found
+}
+
+int main() {
+    int n, x;
+    
+    // Input the size of the array
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+    
+    int arr[n];
+    
+    // Input array elements
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input the sum to be checked
+    printf("Enter the value of X: ");
+    scanf("%d", &x);
+
+    // Check if there exist two elements in the array whose sum is X
+    if (isPairSum(arr, n, x)) {
+        printf("There exist two elements whose sum is %d.\n", x);
+    } else {
+        printf("No such pair found.\n");
+    }
+
+    return 0;
+}
