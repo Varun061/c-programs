@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+// Function to find the first occurrence of x in arr
+int findFirstOccurrence(int arr[], int n, int x) {
+    int low = 0, high = n - 1, result = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == x) {
+            result = mid;
+            high = mid - 1; // Continue searching in the left half
+        } else if (arr[mid] < x) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return result;
+}
+
+// Function to find the last occurrence of x in arr
+int findLastOccurrence(int arr[], int n, int x) {
+    int low = 0, high = n - 1, result = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == x) {
+            result = mid;
+            low = mid + 1; // Continue searching in the right half
+        } else if (arr[mid] < x) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    int n, x;
+
+    // Input the size of the sorted array
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+
+    // Input sorted array elements
+    printf("Enter the elements of the sorted array:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input the element to find occurrences
+    printf("Enter the element to find occurrences: ");
+    scanf("%d", &x);
+
+    // Find the first and last occurrences of x in the array
+    int firstOccurrence = findFirstOccurrence(arr, n, x);
+    int lastOccurrence = findLastOccurrence(arr, n, x);
+
+    if (firstOccurrence != -1 && lastOccurrence != -1) {
+        printf("First occurrence of %d is at index %d\n", x, firstOccurrence);
+        printf("Last occurrence of %d is at index %d\n", x, lastOccurrence);
+    } else {
+        printf("Element not found in the array.\n");
+    }
+
+    return 0;
+}
